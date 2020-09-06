@@ -14,21 +14,27 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: pub get
-    - name: Run dependency validator
-      run: pub run dependency_validator --ignore coveralls,intl,http_multi_server
-    - name: Run dartanalyzer
-      run: dartanalyzer --fatal-warnings --fatal-infos --fatal-lints bin/ lib/ test/
-    - name: Run dartfmt
-      run: dartfmt --set-exit-if-changed -n .
-    - name: Run tests
-      env:
-          COVERALLS_REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      if: success()
-      run:  |
-        pub run test --coverage=coverage
-        pub run coverage:format_coverage --packages=.packages -i coverage -o coverage/coverage.lcov --lcov --report-on=lib
-        pub run tool/format_coverage.dart
-        pub run coveralls:coveralls coverage/coverage.lcov
+
+    - uses: axel-op/dart-package-analyzer/with-full-sdk@v2
+      id: analysis # set an id for the current step
+      with:
+        githubToken: ${{secrets.GITHUB_TOKEN}}
+        # You can then use this id to retrieve the outputs in the next steps.
+        # The following step shows how to exit the workflow with an error if a score is below 100:
+    - name: Check scores
+      # NB: "analysis" is the id set above. Replace it with the one you used if different.
+      run: |
+        MAINTENANCE_SCORE=${{ steps.analysis.outputs.maintenance }}
+        HEALTH_SCORE=${{ steps.analysis.outputs.health }}
+        if (( $(echo "$MAINTENANCE_SCORE < 100" | bc) )) || (( $(echo "$HEALTH_SCORE < 100" | bc) ))
+        then
+          echo "Scores are not both equal to 100"
+          exit 1
+        fi
+
+# https://github.com/marketplace/actions/dart-flutter-package-analyzer
+# https://github.com/axel-op/github_actions_toolkit.dart
+# https://github.com/actions/toolkit
 
   build-dart-2-8:
 
