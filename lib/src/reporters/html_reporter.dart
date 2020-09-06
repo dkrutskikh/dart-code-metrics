@@ -117,6 +117,8 @@ class HtmlReporter implements Reporter {
   }
 
   Element _generateTable(String title, Iterable<ReportTableRecord> records) {
+    int a = 'lalayka';
+
     final sortedRecords = records.toList()
       ..sort((a, b) => a.title.compareTo(b.title));
 
