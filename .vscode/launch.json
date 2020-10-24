@@ -1,0 +1,15 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "dart-code-metrics",
+      "request": "launch",
+      "type": "dart",
+      "program": "bin/metrics.dart",
+      "args": ["--verbose", "--root-folder=/Users/dmitry.krutskih/Development/dart/dart-code-metrics/", "lib", "--ignore-files={./bin,./lib/src/analyzer_plugin/analyzer_plugin.dart}"]
+    },
+  ]
+}

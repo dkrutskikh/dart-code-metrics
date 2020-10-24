@@ -17,6 +17,7 @@ import 'rules/prefer_intl_name.dart';
 import 'rules/prefer_on_push_cd_strategy.dart';
 import 'rules/prefer_trailing_comma_for_collection.dart';
 import 'rules/provide_correct_intl_args.dart';
+import 'rules/unnecessary_type_assertion.dart';
 
 final _implementedRules = <String, BaseRule Function(Map<String, Object>)>{
   AvoidPreserveWhitespaceFalseRule.ruleId: (config) =>
@@ -49,6 +50,8 @@ final _implementedRules = <String, BaseRule Function(Map<String, Object>)>{
       PreferTrailingCommaForCollectionRule(config: config),
   PreferOnPushCdStrategyRule.ruleId: (config) =>
       PreferOnPushCdStrategyRule(config: config),
+  UnnecessaryTypeAssertionRule.ruleId: (config) =>
+      UnnecessaryTypeAssertionRule(config: config),
 };
 
 Iterable<BaseRule> get allRules =>
