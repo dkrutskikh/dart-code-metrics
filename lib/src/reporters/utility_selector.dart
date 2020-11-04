@@ -20,7 +20,9 @@ double avg(Iterable<num> it) => it.isNotEmpty ? sum(it) / it.length : 0;
 class UtilitySelector {
   static FileReport analysisReportForRecords(
           Iterable<FileRecord> records, Config config) =>
-      records.map((r) => fileReport(r, config)).reduce(mergeFileReports);
+      records
+          .map((r) => fileReport(r, config))
+          .reduce((lhs, rhs) => FileReport.merge(lhs, rhs));
 
   static FileReport fileReport(FileRecord record, Config config) {
     final componentReports =
@@ -161,32 +163,6 @@ class UtilitySelector {
           .expand((fileRecord) => fileRecord.functions.values
               .map((functionRecord) => functionReport(functionRecord, config)))
           .map(functionViolationLevel));
-
-  static FileReport mergeFileReports(FileReport lhs, FileReport rhs) => FileReport(
-      averageArgumentsCount:
-          ((lhs.averageArgumentsCount + rhs.averageArgumentsCount) / 2).round(),
-      totalArgumentsCountViolations:
-          lhs.totalArgumentsCountViolations + rhs.totalArgumentsCountViolations,
-      averageMaintainabilityIndex:
-          (lhs.averageMaintainabilityIndex + rhs.averageMaintainabilityIndex) /
-              2,
-      totalMaintainabilityIndexViolations:
-          lhs.totalMaintainabilityIndexViolations +
-              rhs.totalMaintainabilityIndexViolations,
-      averageMethodsCount:
-          ((lhs.averageMethodsCount + rhs.averageMethodsCount) / 2).round(),
-      totalMethodsCountViolations:
-          lhs.totalMethodsCountViolations + rhs.totalMethodsCountViolations,
-      totalCyclomaticComplexity:
-          lhs.totalCyclomaticComplexity + rhs.totalCyclomaticComplexity,
-      totalCyclomaticComplexityViolations:
-          lhs.totalCyclomaticComplexityViolations +
-              rhs.totalCyclomaticComplexityViolations,
-      totalLinesOfExecutableCode:
-          lhs.totalLinesOfExecutableCode + rhs.totalLinesOfExecutableCode,
-      totalLinesOfExecutableCodeViolations:
-          lhs.totalLinesOfExecutableCodeViolations +
-              rhs.totalLinesOfExecutableCodeViolations);
 
   static ViolationLevel _violationLevel(int value, int warningLevel) {
     if (warningLevel == null) {
