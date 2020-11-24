@@ -11,6 +11,7 @@ const cyclomaticComplexityThreshold = 'cyclomatic-complexity';
 const linesOfExecutableCodeThreshold = 'lines-of-executable-code';
 const numberOfArgumentsThreshold = 'number-of-arguments';
 const numberOfMethodsThreshold = 'number-of-methods';
+const maximumNestingThreshold = 'maximum-nesting';
 const verboseName = 'verbose';
 const ignoredFilesName = 'ignore-files';
 const rootFolderName = 'root-folder';
@@ -70,6 +71,16 @@ ArgParser argumentsParser() => ArgParser()
     callback: (String i) {
       if (i != null && int.tryParse(i) == null) {
         _printInvalidArgumentValue(numberOfMethodsThreshold, i);
+      }
+    },
+  )
+  ..addOption(
+    maximumNestingThreshold,
+    help: 'Maximum nesting threshold',
+    valueHelp: '$maximumNestingDefaultWarningLevel',
+    callback: (String i) {
+      if (i != null && int.tryParse(i) == null) {
+        _printInvalidArgumentValue(maximumNestingThreshold, i);
       }
     },
   )

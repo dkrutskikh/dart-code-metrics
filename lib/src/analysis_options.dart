@@ -78,6 +78,8 @@ Config _readMetricsConfig(Map<String, Object> configMap) {
             .as<int>(numberOfArgumentsDefaultWarningLevel),
         numberOfMethodsWarningLevel: configMap['number-of-methods']
             .as<int>(numberOfMethodsDefaultWarningLevel),
+        maximumNestingWarningLevel: configMap['maximum-тesting']
+            .as<int>(maximumNestingDefaultWarningLevel),
       );
     }
   }
