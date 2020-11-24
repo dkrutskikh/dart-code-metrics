@@ -12,6 +12,7 @@ const cyclomaticComplexityThreshold = 'cyclomatic-complexity';
 const linesOfExecutableCodeThreshold = 'lines-of-executable-code';
 const numberOfArgumentsThreshold = 'number-of-arguments';
 const numberOfMethodsThreshold = 'number-of-methods';
+const maximumNestingThreshold = 'maximum-nesting';
 const verboseName = 'verbose';
 const ignoredFilesName = 'ignore-files';
 const rootFolderName = 'root-folder';
@@ -81,6 +82,11 @@ void _appendMetricsThresholdOptions(ArgParser parser) {
       numberOfMethodsThreshold,
       'Number of methods threshold',
       numberOfMethodsDefaultWarningLevel,
+    ),
+    _MetricOption(
+      maximumNestingThreshold,
+      'Maximum nesting threshold',
+      maximumNestingDefaultWarningLevel,
     ),
   ];
 
