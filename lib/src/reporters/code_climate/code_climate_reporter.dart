@@ -8,7 +8,7 @@ import '../reporter.dart';
 import '../utility_selector.dart';
 import 'code_climate_issue.dart';
 
-/// Creates reports in Codeclimate format widely understood by various CI and analysis tools
+/// Creates reports in Code Climate format widely understood by various CI and analysis tools
 // Code Climate Engine Specification https://github.com/codeclimate/platform/blob/master/spec/analyzers/SPEC.md
 class CodeClimateReporter implements Reporter {
   final Config reportConfig;
