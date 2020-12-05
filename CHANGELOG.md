@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased (2.3.0)
+
+- Support analyzer 0.41.0
+- Support analyzer_plugin 0.4.0
+
 ## 2.2.0
 
 - Add static code diagnostic prefer-trailing-comma
