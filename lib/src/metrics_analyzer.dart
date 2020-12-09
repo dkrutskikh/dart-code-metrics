@@ -15,6 +15,7 @@ import 'config/config.dart';
 import 'halstead_volume/halstead_volume_ast_visitor.dart';
 import 'ignore_info.dart';
 import 'lines_of_code/lines_with_code_ast_visitor.dart';
+import 'metrics/access_to_foreign_data/access_to_foreign_data_visitor.dart';
 import 'metrics/cyclomatic_complexity/control_flow_ast_visitor.dart';
 import 'metrics/cyclomatic_complexity/cyclomatic_config.dart';
 import 'metrics_records_store.dart';
@@ -57,7 +58,7 @@ class MetricsAnalyzer {
         ],
         _metricsConfig = options?.metricsConfig ?? const Config(),
         _metricsExclude = _prepareExcludes(options?.metricsExcludePatterns),
-        _useFastParser = true;
+        _useFastParser = false;
 
   /// Return a future that will complete after static analysis done for files from [folders].
 
@@ -133,11 +134,13 @@ class MetricsAnalyzer {
             final linesWithCodeAstVisitor = LinesWithCodeAstVisitor(lineInfo);
             final nestingLevelVisitor =
                 NestingLevelVisitor(function.declaration, lineInfo);
+            final atfdVisitor = AccessToForeignDataVisitor();
 
             function.declaration.visitChildren(controlFlowAstVisitor);
             function.declaration.visitChildren(halsteadVolumeAstVisitor);
             function.declaration.visitChildren(linesWithCodeAstVisitor);
             function.declaration.visitChildren(nestingLevelVisitor);
+            function.declaration.visitChildren(atfdVisitor);
 
             builder.recordFunction(
               function,
