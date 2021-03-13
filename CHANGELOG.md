@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.1
+
+- Allow configuring output directory for HTML reporter
+- Fixed bug with missing CSS files in HTML report directory
+
 ## 2.4.0
 
 - Add static code diagnostic avoid-unused-parameters
